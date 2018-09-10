@@ -1,0 +1,140 @@
+swagger: "2.0"
+info:
+  description: "User login Example"
+  version: "1.0"
+  title: "User login"
+basePath: "/log-info"
+schemes:
+- "http"
+# format of bodies a client can send (Content-Type)
+
+paths:
+ /userlog:
+    post:
+      tags:
+      - "User Details"
+      summary: "Creates user."
+      description: "Creates userdetails."
+      operationId: "createUser"
+      produces:
+      - "application/json"
+      parameters:    
+      - name: "body"
+        in: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/userlog"
+      responses:
+        200:
+          description: "User Details"
+          schema:
+            type: "object"
+            properties: {}
+        400:
+          description: "Error creating a user "
+        default:
+          description: "Unexpected error"
+      x-swagger-router-controller: "logService"
+    get:
+      tags:
+       - "User details"
+      summary: "Get details"
+      description: "Get  all  users "
+      operationId: "getDetails"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "A json of type for given userId."
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/userlog"
+        default:
+          description: "Unexpected error"
+      x-swagger-router-controller: "logService"  
+  
+ /userlog/{uId}:  
+    get:
+      tags:
+      - "User  details by id"
+      summary: "Get Details"
+      description: "Get Details by user Id"
+      operationId: "getDetailsById"
+      parameters:
+        - name: uId
+          in: path
+          description: uId
+          required: true
+          type: string
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "A json of type for given userId."
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/userlog"
+        default:
+          description: "Unexpected error"
+      x-swagger-router-controller: "logService" 
+    delete:
+      tags:
+      - "Delete user by user id"
+      summary: "delete Details"
+      description: "delete Details by userId"
+      operationId: "deleteDetails"
+      parameters:
+        - name: uId
+          in: path
+          description: userId
+          required: true
+          type: string
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "deleted"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/userlog"
+        default:
+          description: "Unexpected error"
+      x-swagger-router-controller: "logService"     
+    put:
+      tags:
+      - "update Details by userid"
+      summary: "updates user Details."
+      description: "updates user Details."
+      operationId: "updateDetails"
+      parameters:
+        - name: uId
+          in: path
+          description: userId
+          required: true
+          type: string 
+        - name: "body"
+          in: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/userlog"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "update Details."
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/userlog"
+        default:
+          description: "Unexpected error"
+      x-swagger-router-controller: "logService" 
+
+ /swagger:
+    x-swagger-pipe: swagger_raw
+definitions:  
+  userlog:
+   type: "object"
